@@ -21,8 +21,7 @@ public class GetWordsFromPDF extends PDFTextStripper {
     }
 
     public static void main(String[] args) throws IOException {
-//        String fileName = "d://abc.pdf";
-        String fileName = "d://bcd.pdf";
+        String fileName = "./demo.pdf";
         try (PDDocument document = PDDocument.load(new File(fileName))) {
             PDFTextStripper stripper = new GetWordsFromPDF();
             stripper.setSortByPosition(true);
@@ -37,12 +36,12 @@ public class GetWordsFromPDF extends PDFTextStripper {
                 list.add(new Demo(word, wordMap.get(word)));
             }
 
-            ExcelWriter writer = ExcelUtil.getWriter("d://efg.xlsx");
+            ExcelWriter writer = ExcelUtil.getWriter("./demo.xlsx");
 
             List<Map<String, Object>> rows = list.stream().map(item -> {
                 Map<String, Object> maps = new HashMap<>();
                 maps.put("name", item.getName());
-                maps.put("aa", item.getValue());
+                maps.put("count", item.getValue());
                 return maps;
             }).collect(Collectors.toList());
             writer.write(rows);
